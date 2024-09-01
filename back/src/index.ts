@@ -1,7 +1,9 @@
-const nombreProyecto: string = "Proyecto Modulo 3";
+import server from "./server";
+import { PORT } from "./config/envs";
+import router from "./routes/indexRouter";
 
-const iniciar = (proyecto: string): void => {
-  console.log(`Bienvenidos al: ${proyecto}`);
-};
+server.use(router);
 
-iniciar(nombreProyecto);
+server.listen(PORT, () => {
+  console.log(`Server listening on PORT ${PORT}`);
+});
