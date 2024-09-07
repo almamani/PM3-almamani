@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
   cancelAppointmentController,
-  getAppointmentController,
+  getByIdAppointmentController,
   getAppointmentsController,
   scheduleAppointmentController,
 } from "../controllers/appointmentsController";
@@ -9,7 +9,7 @@ import {
 const appointmentsRouter: Router = Router();
 
 appointmentsRouter.get("/", getAppointmentsController);
-appointmentsRouter.get("/:id", getAppointmentController);
+appointmentsRouter.get("/:id", getByIdAppointmentController);
 appointmentsRouter.post("/schedule", scheduleAppointmentController);
 appointmentsRouter.put("/cancel", cancelAppointmentController);
 

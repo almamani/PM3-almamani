@@ -1,19 +1,41 @@
 import { Request, Response } from "express";
 
-export const getUsersController = (req: Request, res: Response) => {
-  res.status(200).json({ message: "Obtener el listado de todos los usuarios" });
-};
-
-export const getUserByIdController = (req: Request, res: Response) => {
-  res
+const getUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  return res
     .status(200)
-    .json({ message: "Obtener el detalle de un usuario específico" });
+    .json({ message: "Obtener el listado de todos los usuarios" });
 };
 
-export const createUserController = (req: Request, res: Response) => {
-  res.status(200).json({ message: "Registro de un Nuevo Usuario" });
+const getUserByIdController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { id } = req.params;
+  return res
+    .status(200)
+    .json({ message: `Obtener el detalle del usuario con el ${id}` });
 };
 
-export const loginUserController = (req: Request, res: Response) => {
-  res.status(200).json({ message: "Login del usuario a la aplicación" });
+const createUserController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  return res.status(200).json({ message: "Registro de un Nuevo Usuario" });
+};
+
+const loginUserController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  return res.status(200).json({ message: "Login del usuario a la aplicación" });
+};
+
+export {
+  createUserController,
+  getUserByIdController,
+  getUsersController,
+  loginUserController,
 };
