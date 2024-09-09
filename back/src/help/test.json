@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Flor",
+    "email": "flor@email.com",
+    "birthdate": "2000-01-11",
+    "nDni": 11111111,
+    "password": "flor1111"
+  },
+
+  {
+    "date": "2024-09-10",
+    "time": "10:30 hs",
+    "userId": 11,
+    "status": "active"
+  },
+  {
+    "name": "domi",
+    "email": "domi@email.com",
+    "birthdate": "2000-02-22",
+    "nDni": 22222222,
+    "password": "domi2222"
+  },
+  {
+    "date": "2024-09-10",
+    "time": "12:00 hs",
+    "userId": 12,
+    "status": "active"
+  }
+]
