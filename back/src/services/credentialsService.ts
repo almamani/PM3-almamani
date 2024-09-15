@@ -1,47 +1,28 @@
-import ICredential from "../interfaces/ICredential";
-import ICredentialDto from "../dto/ICredentialDto";
+import { Credential } from "../entities/Credential";
+import createCredentialDto from "../dto/createCredentialDto";
+import { CredentialModel } from "../config/data-source";
 
-let credentials: ICredential[] = [];
-
-let id: number = 1;
-
-/* Esta FUNCION DEFINITIVA  */
 const createCredentialService = async (
-  credentialData: ICredentialDto
-): Promise<number> => {
-  const newCredential: ICredential = {
-    id,
-    username: credentialData.username,
-    password: credentialData.password,
-  };
-
-  credentials.push(newCredential);
-  id++;
-  return newCredential.id;
+  credentialData: createCredentialDto
+): Promise<Credential> => {
+  const newCredential = await CredentialModel.create(credentialData);
+  const result = await CredentialModel.save(newCredential);
+  return newCredential;
 };
 
-/* Esta FUNCION ES PROVISORIA, para mostar los registros de credentials */
-const getCredentialService = async (): Promise<ICredential[]> => {
-  return credentials;
-};
-
-/* Esta FUNCION ES DEFINITIVA*/
 const validateCredentialsService = async (
   username: string,
   password: string
 ): Promise<number> => {
-  const userCredential = credentials.find(
-    (cred: ICredential) => cred.username === username
-  );
+  const userCredential = await CredentialModel.findOne({
+    where: { username },
+    relations: ["user"],
+  });
 
   if (!userCredential) return 0;
   if (userCredential.password !== password) return -1;
 
-  return userCredential.id;
+  return userCredential.user.id;
 };
 
-export {
-  createCredentialService,
-  getCredentialService,
-  validateCredentialsService,
-};
+export { createCredentialService, validateCredentialsService };

@@ -1,39 +1,48 @@
-import IUser from "../interfaces/IUser";
-import IUserDto from "../dto/IUserDto";
+import { User } from "../entities/User";
+import createUserDto from "../dto/createUserDto";
+import { UserModel } from "../config/data-source";
+
 import { createCredentialService } from "./credentialsService";
 
-let users: IUser[] = [];
-
-let id: number = 11;
-
-const getUsersService = async (): Promise<IUser[]> => {
+const getUsersService = async (): Promise<User[]> => {
+  const users: User[] = await UserModel.find({
+    relations: {
+      appointments: true,
+      credential: true,
+    },
+  });
   return users;
 };
 
-const getUserByIdService = async (
-  userId: number
-): Promise<IUser | undefined> => {
-  const user = users.find((user) => user.id === userId);
-
+const getUserByIdService = async (id: number): Promise<User | null> => {
+  const user: User | null = await UserModel.findOne({
+    where: { id },
+    relations: {
+      appointments: true,
+      credential: true,
+    },
+  });
   return user;
 };
 
-const createUserService = async (userData: IUserDto): Promise<IUser> => {
-  const credentialsId = await createCredentialService({
-    username: userData.email,
-    password: userData.password,
+const createUserService = async (userData: createUserDto): Promise<User> => {
+  const { name, email, birthdate, nDni, username, password } = userData;
+  const newCredentials = await createCredentialService({
+    username,
+    password,
   });
-  const newUser: IUser = {
-    id,
-    name: userData.name,
-    email: userData.email,
-    birthdate: userData.birthdate,
-    nDni: userData.nDni,
-    credentialsId,
-  };
-  users.push(newUser);
-  id++;
-  return newUser;
+
+  const userObj: User = await UserModel.create({
+    name,
+    email,
+    birthdate,
+    nDni,
+    credential: newCredentials,
+  });
+
+  newCredentials.user = userObj;
+  await UserModel.save(userObj);
+  return userObj;
 };
 
-export { createUserService, getUsersService, getUserByIdService, users };
+export { createUserService, getUsersService, getUserByIdService };

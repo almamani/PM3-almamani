@@ -1,43 +1,45 @@
-import IAppointment from "../interfaces/IAppointment";
-import IAppointmentDto from "../dto/IAppointmentDto";
+import { Appointment } from "../entities/Appointment";
+import createAppointmentDto from "../dto/createAppointmentDto";
+import { AppointmentModel } from "../config/data-source";
+import { UserModel } from "../config/data-source";
+import { statusEnum } from "../enums/statusEnum";
 
-let appointments: IAppointment[] = [];
-
-let id: number = 111;
-
-const getAppointmentsService = async (): Promise<IAppointment[]> => {
+const getAppointmentsService = async (): Promise<Appointment[]> => {
+  const appointments = await AppointmentModel.find();
   return appointments;
 };
 
 const getAppointmentByIdService = async (
-  appointmenId: number
-): Promise<IAppointment | undefined> => {
-  const appointment = appointments.find((app) => app.id === appointmenId);
+  id: number
+): Promise<Appointment | null> => {
+  const appointment = await AppointmentModel.findOneBy({ id });
   return appointment;
 };
 
 const scheduleAppointmentService = async (
-  appointmentData: IAppointmentDto
-): Promise<IAppointment> => {
-  const newAppointment: IAppointment = {
-    id,
-    date: appointmentData.date,
-    time: appointmentData.time,
-    userId: appointmentData.userId,
-    status: appointmentData.status,
-  };
-  appointments.push(newAppointment);
-  id++;
+  appointmentData: createAppointmentDto
+): Promise<Appointment> => {
+  const newAppointment = await AppointmentModel.create(appointmentData);
+  await AppointmentModel.save(newAppointment);
+
+  const user = await UserModel.findOneBy({ id: appointmentData.userId });
+
+  if (user) {
+    newAppointment.user = user;
+    AppointmentModel.save(newAppointment);
+  }
+
   return newAppointment;
 };
 
 const cancelAppointmentService = async (
-  appointmentId: number
-): Promise<IAppointment | null> => {
-  const appointment = appointments.find((app) => app.id === appointmentId);
+  id: number
+): Promise<Appointment | null> => {
+  const appointment = await getAppointmentByIdService(id);
 
   if (appointment) {
-    appointment.status = "cancelled";
+    appointment.status = statusEnum.CANCELLED;
+    await AppointmentModel.save(appointment);
     return appointment;
   } else {
     return null;

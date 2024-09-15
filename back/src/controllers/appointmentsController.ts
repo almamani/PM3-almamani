@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import IAppointment from "../interfaces/IAppointment";
+import { Appointment } from "../entities/Appointment";
 import {
   getAppointmentsService,
   getAppointmentByIdService,
@@ -11,7 +11,7 @@ const getAppointmentsController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const appointments: IAppointment[] = await getAppointmentsService();
+  const appointments: Appointment[] = await getAppointmentsService();
   return res
     .status(201)
     .json({ message: "El listado de Turnos es:", data: appointments });
@@ -38,11 +38,10 @@ const scheduleAppointmentController = async (
   res: Response
 ): Promise<Response> => {
   const { date, time, userId, status } = req.body;
-  const newAppointment: IAppointment = await scheduleAppointmentService({
+  const newAppointment: Appointment = await scheduleAppointmentService({
     date,
     time,
     userId,
-    status,
   });
   return res
     .status(201)

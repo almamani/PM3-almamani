@@ -5,13 +5,13 @@ import {
   createUserService,
 } from "../services/usersService";
 import { validateCredentialsService } from "../services/credentialsService";
-import IUser from "../interfaces/IUser";
+import { User } from "../entities/User";
 
 const getUsersController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const users: IUser[] = await getUsersService();
+  const users: User[] = await getUsersService();
   return res
     .status(201)
     .json({ message: "El listado de usuarios es:", data: users });
@@ -35,12 +35,13 @@ const createUserController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const { name, email, birthdate, nDni, password } = req.body;
-  const newUser: IUser = await createUserService({
+  const { name, email, birthdate, nDni, username, password } = req.body;
+  const newUser: User = await createUserService({
     name,
     email,
     birthdate,
     nDni,
+    username,
     password,
   });
   return res
@@ -59,12 +60,10 @@ const loginUserController = async (
   } else if (userId === -1) {
     return res.status(401).json({ message: "Password Incorrecto" });
   } else {
-    return res
-      .status(200)
-      .json({
-        message: "Validación Correcta",
-        "Id Credenciales Usuario Logueado": userId,
-      });
+    return res.status(200).json({
+      message: "Validación Correcta",
+      "Id Credenciales Usuario Logueado": userId,
+    });
   }
 };
 

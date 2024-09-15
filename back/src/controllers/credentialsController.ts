@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import ICredential from "../interfaces/ICredential";
+import { Credential } from "../entities/Credential";
 import {
   createCredentialService,
   getCredentialService,
@@ -8,18 +8,18 @@ import {
 
 const createCredentialController = async (req: Request, res: Response) => {
   const { username, password } = req.body;
-  const newCredentialId: number = await createCredentialService({
+  const newCredential: Credential = await createCredentialService({
     username,
     password,
   });
   res.status(201).json({
-    message: "Credencial generada con exito con id:",
-    data: newCredentialId,
+    message: "Credencial generada con exito",
+    data: newCredential,
   });
 };
 
 const getCredentialsController = async (req: Request, res: Response) => {
-  const credentials: ICredential[] = await getCredentialService();
+  const credentials: Credential[] = await getCredentialService();
   res
     .status(201)
     .json({ message: "El listado de credenciales es:", data: credentials });

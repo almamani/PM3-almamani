@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+/* import { Request, Response, NextFunction } from "express";
 import { users } from "../services/usersService"; // Asumiendo que aquí está tu array de usuarios
 
 const validateUserIdMiddleware = (
@@ -24,3 +24,4 @@ const validateUserIdMiddleware = (
 };
 
 export default validateUserIdMiddleware;
+ */
