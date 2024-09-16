@@ -1,5 +1,6 @@
 import { Credential } from "../entities/Credential";
 import createCredentialDto from "../dto/createCredentialDto";
+import { User } from "../entities/User";
 import { CredentialModel } from "../config/data-source";
 
 const createCredentialService = async (
@@ -13,16 +14,14 @@ const createCredentialService = async (
 const validateCredentialsService = async (
   username: string,
   password: string
-): Promise<number> => {
-  const userCredential = await CredentialModel.findOne({
+): Promise<User | null> => {
+  const userCredential: Credential | null = await CredentialModel.findOne({
     where: { username },
     relations: ["user"],
   });
 
-  if (!userCredential) return 0;
-  if (userCredential.password !== password) return -1;
-
-  return userCredential.user.id;
+  if (userCredential?.password === password) return userCredential.user;
+  else return null;
 };
 
 export { createCredentialService, validateCredentialsService };

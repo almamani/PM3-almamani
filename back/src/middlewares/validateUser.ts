@@ -1,7 +1,8 @@
-/* import { Request, Response, NextFunction } from "express";
-import { users } from "../services/usersService"; // Asumiendo que aquí está tu array de usuarios
+import { Request, Response, NextFunction } from "express";
+import { UserModel } from "../config/data-source";
+import { User } from "../entities/User";
 
-const validateUserIdMiddleware = (
+const validateUserIdMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -12,7 +13,9 @@ const validateUserIdMiddleware = (
     return res.status(400).json({ message: "El campo userId es obligatorio." });
   }
 
-  const userExists = users.some((user) => user.id === userId);
+  const userExists: User | null = await UserModel.findOneBy({
+    id: userId,
+  });
 
   if (!userExists) {
     return res
@@ -24,4 +27,3 @@ const validateUserIdMiddleware = (
 };
 
 export default validateUserIdMiddleware;
- */

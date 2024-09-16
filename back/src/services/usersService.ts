@@ -19,7 +19,6 @@ const getUserByIdService = async (id: number): Promise<User | null> => {
     where: { id },
     relations: {
       appointments: true,
-      credential: true,
     },
   });
   return user;

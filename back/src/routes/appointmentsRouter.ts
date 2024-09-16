@@ -6,7 +6,7 @@ import {
   scheduleAppointmentController,
 } from "../controllers/appointmentsController";
 
-/* import validateUserIdMiddleware from "../middlewares/validateUser"; */
+import validateUserIdMiddleware from "../middlewares/validateUser";
 
 const appointmentsRouter: Router = Router();
 
@@ -14,7 +14,7 @@ appointmentsRouter.get("/", getAppointmentsController);
 appointmentsRouter.get("/:id", getByIdAppointmentController);
 appointmentsRouter.post(
   "/schedule",
-  /* validateUserIdMiddleware, */
+  validateUserIdMiddleware,
   scheduleAppointmentController
 );
 appointmentsRouter.put("/cancel", cancelAppointmentController);

@@ -25,9 +25,11 @@ const getUserByIdController = async (
   const user = await getUserByIdService(id);
 
   if (user) {
-    return res.status(200).json({ message: "Usuario encontrado", data: user });
+    return res
+      .status(200)
+      .json({ message: "Usuario fue encontrado", user: user });
   } else {
-    return res.status(404).json({ message: "Usuario no encontrado" });
+    return res.status(404).json({ message: "Usuario no fue encontrado" });
   }
 };
 
@@ -36,6 +38,11 @@ const createUserController = async (
   res: Response
 ): Promise<Response> => {
   const { name, email, birthdate, nDni, username, password } = req.body;
+
+  if (!name || !email || !birthdate || !nDni || !username || !password) {
+    return res.status(400).json({ message: "Los datos son incorrectos" });
+  }
+
   const newUser: User = await createUserService({
     name,
     email,
@@ -46,7 +53,7 @@ const createUserController = async (
   });
   return res
     .status(201)
-    .json({ message: "Usuario Creado con Exito", data: newUser });
+    .json({ message: "Usuario Creado con Exito", user: newUser });
 };
 
 const loginUserController = async (
@@ -54,17 +61,16 @@ const loginUserController = async (
   res: Response
 ): Promise<Response> => {
   const { username, password } = req.body;
-  const userId: number = await validateCredentialsService(username, password);
-  if (userId === 0) {
-    return res.status(404).json({ message: "Usuario no encontrado" });
-  } else if (userId === -1) {
-    return res.status(401).json({ message: "Password Incorrecto" });
-  } else {
+  const user: User | null = await validateCredentialsService(
+    username,
+    password
+  );
+  if (user) {
     return res.status(200).json({
-      message: "Validación Correcta",
-      "Id Credenciales Usuario Logueado": userId,
+      login: true,
+      user: user,
     });
-  }
+  } else return res.status(400).json({ message: "Datos Incorrectos" });
 };
 
 export {

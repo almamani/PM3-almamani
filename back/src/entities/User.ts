@@ -25,7 +25,7 @@ export class User {
   @Column()
   email: string;
 
-  @Column()
+  @Column({ type: "date" })
   birthdate: Date;
 
   @Column("integer")
