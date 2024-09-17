@@ -1,4 +1,4 @@
-import { DataSource, Db } from "typeorm";
+import { DataSource } from "typeorm";
 import { User } from "../entities/User";
 import { Credential } from "../entities/Credential";
 import { Appointment } from "../entities/Appointment";
@@ -11,7 +11,6 @@ export const AppDataSource = new DataSource({
   username: DB_USERNAME,
   password: DB_PASSWORD,
   database: DB_DB,
-  dropSchema: true,
   synchronize: true,
   logging: false,
   entities: [User, Credential, Appointment],

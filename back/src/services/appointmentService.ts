@@ -4,7 +4,7 @@ import { AppointmentModel } from "../config/data-source";
 import { UserModel } from "../config/data-source";
 import { statusEnum } from "../enums/statusEnum";
 
-const getAppointmentsService = async (): Promise<Appointment[]> => {
+const getAllAppointmentsService = async (): Promise<Appointment[]> => {
   const appointments = await AppointmentModel.find();
   return appointments;
 };
@@ -12,7 +12,12 @@ const getAppointmentsService = async (): Promise<Appointment[]> => {
 const getAppointmentByIdService = async (
   id: number
 ): Promise<Appointment | null> => {
-  const appointment = await AppointmentModel.findOneBy({ id });
+  const appointment = await AppointmentModel.findOne({
+    where: { id },
+    relations: {
+      user: true,
+    },
+  });
   return appointment;
 };
 
@@ -47,7 +52,7 @@ const cancelAppointmentService = async (
 };
 
 export {
-  getAppointmentsService,
+  getAllAppointmentsService,
   getAppointmentByIdService,
   scheduleAppointmentService,
   cancelAppointmentService,

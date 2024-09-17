@@ -4,11 +4,11 @@ import { UserModel } from "../config/data-source";
 
 import { createCredentialService } from "./credentialsService";
 
-const getUsersService = async (): Promise<User[]> => {
+const getAllUsersService = async (): Promise<User[]> => {
   const users: User[] = await UserModel.find({
     relations: {
       appointments: true,
-      credential: true,
+      credential: false,
     },
   });
   return users;
@@ -44,4 +44,4 @@ const createUserService = async (userData: createUserDto): Promise<User> => {
   return userObj;
 };
 
-export { createUserService, getUsersService, getUserByIdService };
+export { createUserService, getAllUsersService, getUserByIdService };

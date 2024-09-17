@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   cancelAppointmentController,
   getByIdAppointmentController,
-  getAppointmentsController,
+  getAllAppointmentsController,
   scheduleAppointmentController,
 } from "../controllers/appointmentsController";
 
@@ -10,7 +10,7 @@ import validateUserIdMiddleware from "../middlewares/validateUser";
 
 const appointmentsRouter: Router = Router();
 
-appointmentsRouter.get("/", getAppointmentsController);
+appointmentsRouter.get("/", getAllAppointmentsController);
 appointmentsRouter.get("/:id", getByIdAppointmentController);
 appointmentsRouter.post(
   "/schedule",
