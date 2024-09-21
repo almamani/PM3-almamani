@@ -1,0 +1,74 @@
+/* Reset general */
+
+/* Box-sizing para que los elementos utilicen el modelo de caja de borde (border-box) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Margin y padding en todos los elementos a 0 */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+li,
+dt,
+dd,
+blockquote,
+figure,
+hr,
+pre,
+fieldset,
+legend,
+button,
+input,
+textarea,
+optgroup,
+option {
+  margin: 0;
+  padding: 0;
+}
+
+/* Establecer estilos básicos para el cuerpo del documento */
+body {
+  line-height: 1.5;
+  font-family: Arial, sans-serif; /* Cambia la fuente según tus preferencias */
+}
+
+/* Establecer estilos para los elementos de encabezado */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: bold;
+}
+
+/* Establecer estilos para los elementos de lista */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Establecer estilos para los elementos de enlace */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Establecer estilos para las imágenes */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
