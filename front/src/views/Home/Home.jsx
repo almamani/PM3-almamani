@@ -1,4 +1,3 @@
-/* import styles from "./HomeView.module.css"; */
 import { Container } from "./styled";
 
 const Home = () => {

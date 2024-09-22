@@ -5,7 +5,6 @@ const Container = styled.div`
 
   h2 {
     text-align: center;
-    color: var(--pink-dark);
   }
 `;
 

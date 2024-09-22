@@ -44,7 +44,7 @@ body {
 }
 
 /* Establecer estilos para los elementos de encabezado */
-h1,
+/* h1,
 h2,
 h3,
 h4,
@@ -52,7 +52,7 @@ h5,
 h6 {
   font-size: inherit;
   font-weight: bold;
-}
+} */
 
 /* Establecer estilos para los elementos de lista */
 ul,

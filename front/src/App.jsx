@@ -1,12 +1,14 @@
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
-import HomeView from "./views/HomeView/HomeView";
+/* import Home from "./views/Home/Home"; */
+import MisTurnos from "./views/MisTurnos/MisTurnos";
 
 function App() {
   return (
     <>
       <NavBar />
-      <HomeView />
+      {/* <Home /> */}
+      <MisTurnos />
     </>
   );
 }
