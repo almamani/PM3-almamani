@@ -1,18 +1,20 @@
 import styled from "styled-components";
 
+// Estilos del contenedor
 const Container = styled.div`
-  width: 200px;
-  text-align: center;
-  height: auto;
-  background-color: var(--pink-light-very); /* #ffd5eb */
-  border: 1px solid var(--pink-light); /* #fe7abf */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  border: 1px solid var(--pink-light);
   padding: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
+  margin-bottom: 1rem;
 
   button {
-    margin-top: 1rem;
-    background-color: var(--pink-light); /* #fe7abf */
+    background-color: var(--pink-basic);
     color: white;
     border: none;
     padding: 8px 18px;
@@ -29,9 +31,15 @@ const Container = styled.div`
     }
 
     &:hover:not(:disabled) {
-      background-color: #e65ca2;
+      background-color: var(--pink-dark);
     }
   }
 `;
 
-export { Container };
+const Estado = styled.p`
+  font-weight: bold;
+  color: ${(props) =>
+    props.status === "cancelled" ? "var(--pink-dark)" : "var(--green-basic)"};
+`;
+
+export { Container, Estado };

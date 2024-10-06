@@ -1,11 +1,11 @@
 import { Container } from "./styled";
 
-const Home = () => {
+const NuevoTurno = () => {
   return (
     <Container>
-      <h1>Este es el Home</h1>
+      <h1>Este es el Nuevo Turno</h1>
     </Container>
   );
 };
 
-export default Home;
+export default NuevoTurno;

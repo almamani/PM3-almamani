@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Container = styled.div`
   padding-top: 1rem;
 
-  h2 {
+  h1 {
     text-align: center;
     margin-bottom: 2rem;
   }
@@ -11,7 +11,7 @@ const Container = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 25%;
     margin: 0 auto;
   }
 
@@ -23,7 +23,7 @@ const Container = styled.div`
   input {
     width: 100%;
     padding: 0.5rem;
-    margin-bottom: 0.5rem; /* Reduce el espacio entre input y mensaje de error */
+    margin-bottom: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
@@ -34,7 +34,16 @@ const Container = styled.div`
     margin: 0.2rem 0 0 0; /* Espacio entre input y mensaje de error */
   }
 
+  .login {
+    margin-top: 0.9rem;
+    color: var(--green-basic);
+    font-size: 1.05rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
   button {
+    margin-top: 1rem;
     width: 100%;
     padding: 0.5rem;
     background-color: var(--pink-basic);

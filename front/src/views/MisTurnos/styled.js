@@ -4,6 +4,7 @@ const Container = styled.div`
   padding-top: 1rem;
   h1 {
     text-align: center;
+    margin-bottom: 2rem;
   }
 
   width: 90%;
@@ -12,11 +13,6 @@ const Container = styled.div`
 
   .containerTurnos {
     margin-top: 3rem;
-    display: grid;
-    grid-template-columns: repeat(4, 25%);
-    justify-content: space-between;
-    align-content: center;
-    row-gap: 3rem;
   }
 `;
 

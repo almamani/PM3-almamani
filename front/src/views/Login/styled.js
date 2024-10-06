@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Container = styled.div`
   padding-top: 1rem;
 
-  h2 {
+  h1 {
     text-align: center;
     margin-bottom: 2rem;
   }
@@ -13,6 +13,10 @@ const Container = styled.div`
     flex-direction: column;
     width: 30%;
     margin: 0 auto;
+  }
+
+  div {
+    margin-bottom: 0.8rem;
   }
 
   label {
@@ -32,6 +36,14 @@ const Container = styled.div`
     color: var(--pink-basic);
     font-size: 0.8rem;
     margin: 0.2rem 0 0 0; /* Espacio entre input y mensaje de error */
+  }
+
+  .registro {
+    margin-top: 0.9rem;
+    color: var(--green-basic);
+    font-size: 1.05rem;
+    font-weight: bold;
+    text-align: center;
   }
 
   button {

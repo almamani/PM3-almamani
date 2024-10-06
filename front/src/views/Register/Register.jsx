@@ -2,17 +2,18 @@ import { Container } from "./styled";
 import { useState } from "react";
 import { validateRegister } from "../../helpers/validateRegister";
 import axios from "axios";
-import DatePicker from "react-datepicker"; // Importamos react-datepicker
-import "react-datepicker/dist/react-datepicker.css"; // Importamos los estilos
+import { Link } from "react-router-dom";
+import { SLASH } from "../../helpers/pathsRoutes";
 
 const Register = () => {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
-    birthdate: null, // Cambiamos a null para almacenar una fecha
+    birthdate: "",
     nDni: "",
     username: "",
     password: "",
+    repeatedPassword: "",
   });
 
   const [errors, setErrors] = useState({
@@ -22,18 +23,13 @@ const Register = () => {
     nDni: "",
     username: "",
     password: "",
+    repeatedPassword: "",
   });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
     setErrors(validateRegister({ ...userData, [name]: value }));
-  };
-
-  // Manejamos el cambio de fecha con el DatePicker
-  const handleDateChange = (date) => {
-    setUserData({ ...userData, birthdate: date });
-    setErrors(validateRegister({ ...userData, birthdate: date }));
   };
 
   const handleOnSubmit = async (event) => {
@@ -43,28 +39,17 @@ const Register = () => {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      // Transformar la fecha al formato aaaa/mm/dd
-      const birthdate = new Date(userData.birthdate);
-      const formattedDate = `${birthdate.getFullYear()}/${String(
-        birthdate.getMonth() + 1
-      ).padStart(2, "0")}/${String(birthdate.getDate()).padStart(2, "0")}`;
-
-      // Crear un objeto de datos que enviarás
-      const dataToSend = {
-        ...userData,
-        birthdate: formattedDate,
-      };
+      const { repeatedPassword, ...dataToSend } = userData;
 
       try {
         const response = await axios.post(
           "http://localhost:3000/users/register",
-          dataToSend
+          dataToSend // Enviar solo los datos necesarios
         );
         console.log("Respuesta del servidor:", response.data);
 
         alert("Usuario registrado con éxito!");
 
-        // Limpiar el formulario
         setUserData({
           name: "",
           email: "",
@@ -72,6 +57,7 @@ const Register = () => {
           nDni: "",
           username: "",
           password: "",
+          repeatedPassword: "",
         });
       } catch (error) {
         if (error.response) {
@@ -86,9 +72,10 @@ const Register = () => {
       }
     }
   };
+
   return (
     <Container>
-      <h2>Formulario de Registro</h2>
+      <h1>Formulario de Registro</h1>
       <form onSubmit={handleOnSubmit}>
         <div>
           <label>Nombre y Apellido:</label>
@@ -109,22 +96,17 @@ const Register = () => {
             name="email"
             placeholder="example@gmail.com"
             onChange={handleInputChange}
+            size="10"
           />
           {errors.email && <p>{errors.email}</p>}
         </div>
         <div>
           <label>Fecha de Nacimiento:</label>
-          {/* Reemplazamos el input por el DatePicker */}
-          <DatePicker
-            selected={userData.birthdate} // La fecha seleccionada
-            onChange={handleDateChange} // El manejador para el cambio de fecha
-            dateFormat="dd/MM/yyyy" // Formato de la fecha
-            placeholderText="Selecciona una fecha"
-            maxDate={new Date()} // No permitir fechas futuras
-            showMonthDropdown
-            showYearDropdown // Desplegable para años
-            scrollableYearDropdown // Hacer el desplegable de años scrollable
-            yearDropdownItemNumber={100} // Mostrar un rango de 100 años
+          <input
+            type="date"
+            value={userData.birthdate}
+            name="birthdate"
+            onChange={handleInputChange}
           />
           {errors.birthdate && <p>{errors.birthdate}</p>}
         </div>
@@ -156,15 +138,27 @@ const Register = () => {
             type="password"
             value={userData.password}
             name="password"
-            placeholder="********"
+            placeholder="Ingrese Contraseña"
             onChange={handleInputChange}
           />
           {errors.password && <p>{errors.password}</p>}
         </div>
-        <button>Enviar</button>
+        <div>
+          <label>Repetir Contraseña:</label>
+          <input
+            type="password"
+            value={userData.repeatedPassword}
+            name="repeatedPassword"
+            placeholder="Repetir Contraseña"
+            onChange={handleInputChange}
+          />
+          {errors.repeatedPassword && <p>{errors.repeatedPassword}</p>}
+        </div>
+        <button>Registrarse</button>
       </form>
-      <br />
-      <br />
+      <div className="login">
+        <Link to={SLASH}>¿Ya estás registrado? Inicia Sesión</Link>
+      </div>
     </Container>
   );
 };

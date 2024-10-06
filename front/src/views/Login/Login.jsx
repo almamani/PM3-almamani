@@ -2,8 +2,12 @@ import { Container } from "./styled";
 import { useState } from "react";
 import { validateLogin } from "../../helpers/validateLogin";
 import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import { HOME, REGISTER } from "../../helpers/pathsRoutes";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -25,41 +29,31 @@ const Login = () => {
   const handleOnSubmit = async (event) => {
     event.preventDefault();
 
-    // Validar campos vacíos y formato al enviar
     const validationErrors = validateLogin(userData, true);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
       try {
-        const response = await axios.post(
+        const user = await axios.post(
           "http://localhost:3000/users/login",
           userData
         );
-
-        // Si el login es exitoso
-        if (response.data.login) {
-          alert("Usuario logueado correctamente");
-        } else {
-          alert("Error en usuario y/o Contraseña");
-        }
+        navigate(HOME);
+        //A GUARDAR LOS DATOS DEL USUARIO EN EL GLOBAL
+        console.log(user.data.user);
       } catch (error) {
-        // Verifica si el error es un 400 y muestra un mensaje específico
-        if (error.response && error.response.status === 400) {
-          alert("Error en usuario y/o Contraseña");
-        } else {
-          alert("Error en la solicitud, por favor intente más tarde");
-        }
+        alert("Usuario y/o Contraseña Incorrectos", error);
       }
     }
   };
 
   return (
     <Container>
-      <h2>Formulario de Login</h2>
+      <h1>Registro de Turnos - Bienvenid@</h1>
       <form onSubmit={handleOnSubmit}>
         <div>
-          <label>Usuario:</label>
+          <label>Ingrese Usuario:</label>
           <input
             type="text"
             value={userData.username}
@@ -69,21 +63,24 @@ const Login = () => {
           />
           {errors.username && <p>{errors.username}</p>}
         </div>
-        <br />
+
         <div>
-          <label>Contraseña:</label>
+          <label>Ingrese Contraseña:</label>
           <input
             type="password"
             value={userData.password}
             name="password"
-            placeholder="********"
+            placeholder="Ingrese Contraseña"
             onChange={handleInputChange}
           />
           {errors.password && <p>{errors.password}</p>}
         </div>
-        <br />
-        <button>Enviar</button>
+
+        <button>Ingresar</button>
       </form>
+      <div className="registro">
+        <Link to={REGISTER}>¿No estás registrado? Registrate Aquí</Link>
+      </div>
     </Container>
   );
 };
