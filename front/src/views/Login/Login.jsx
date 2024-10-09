@@ -1,12 +1,17 @@
 import { Container } from "./styled";
 import { useState } from "react";
 import { validateLogin } from "../../helpers/validateLogin";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { HOME, REGISTER } from "../../helpers/pathsRoutes";
+import { useUserLoginMutation } from "../../redux/usersApi";
+import { setUser } from "../../redux/usersSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const [userLogin] = useUserLoginMutation();
+  const dispatch = useDispatch();
 
   const [userData, setUserData] = useState({
     username: "",
@@ -35,13 +40,9 @@ const Login = () => {
       setErrors(validationErrors);
     } else {
       try {
-        const user = await axios.post(
-          "http://localhost:3000/users/login",
-          userData
-        );
+        const user = await userLogin(userData).unwrap();
+        dispatch(setUser(user));
         navigate(HOME);
-        //A GUARDAR LOS DATOS DEL USUARIO EN EL GLOBAL
-        console.log(user.data.user);
       } catch (error) {
         alert("Usuario y/o Contraseña Incorrectos", error);
       }

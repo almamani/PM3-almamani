@@ -39,7 +39,7 @@ const Container = styled.div`
 const Estado = styled.p`
   font-weight: bold;
   color: ${(props) =>
-    props.status === "cancelled" ? "var(--pink-dark)" : "var(--green-basic)"};
+    props.$status === "cancelled" ? "var(--pink-dark)" : "var(--green-basic)"};
 `;
 
 export { Container, Estado };

@@ -8,12 +8,16 @@ import {
   NEW_APPOIMENT,
   REGISTER,
 } from "../../helpers/pathsRoutes";
+import Logged from "../Logged/Logged";
+import { unsetUser } from "../../redux/usersSlice";
+import { useDispatch } from "react-redux";
 
 const NavBar = () => {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    console.log("Click en cerrar sesión");
+    dispatch(unsetUser());
   };
 
   return (
@@ -39,6 +43,7 @@ const NavBar = () => {
             </Link>
           </ul>
         )}
+        <Logged />
       </Container>
       <hr />
     </>
