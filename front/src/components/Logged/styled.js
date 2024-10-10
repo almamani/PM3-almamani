@@ -12,7 +12,7 @@ const Container = styled.div`
   }
 
   figure {
-    width: 25%;
+    width: 20%;
     max-width: 100px;
   }
 `;

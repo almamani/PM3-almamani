@@ -12,7 +12,21 @@ const MisTurnos = () => {
   const { data, isLoading, isError, refetch } =
     useUserAppointmentsQuery(userLogged);
 
-  const handleCancelStatus = async (id) => {
+  const calculoDifHoras = (fechaTurno) => {
+    const fecha_HoraActual = new Date();
+    const fecha_HoraTurno = new Date(fechaTurno);
+    const diferenciaMilisegundos = fecha_HoraTurno - fecha_HoraActual;
+    const diferenciaHoras = diferenciaMilisegundos / (1000 * 60 * 60);
+    return diferenciaHoras;
+  };
+
+  const handleCancelStatus = async (id, date) => {
+    const difHoras = calculoDifHoras(date);
+    if (difHoras < 24) {
+      alert("Solo se puede cancelar el turno hasta 24 horas antes ");
+      return;
+    }
+
     try {
       await cancelAppointment(id);
       refetch();
@@ -31,11 +45,13 @@ const MisTurnos = () => {
             : isError
             ? "Error al cargar los Turnos"
             : data.user.appointments.map((turno) => {
+                const { date, id } = turno;
+
                 return (
                   <Turno
-                    key={turno.id}
+                    key={id}
                     turno={turno}
-                    handleCancelStatus={() => handleCancelStatus(turno.id)}
+                    handleCancelStatus={() => handleCancelStatus(id, date)}
                   />
                 );
               })}

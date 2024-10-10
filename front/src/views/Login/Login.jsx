@@ -51,7 +51,7 @@ const Login = () => {
 
   return (
     <Container>
-      <h1>Registro de Turnos - Bienvenid@</h1>
+      <h1>Central de Turnos - Bienvenid@</h1>
       <form onSubmit={handleOnSubmit}>
         <div>
           <label>Ingrese Usuario:</label>

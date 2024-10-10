@@ -10,11 +10,13 @@ import {
 } from "../../helpers/pathsRoutes";
 import Logged from "../Logged/Logged";
 import { unsetUser } from "../../redux/usersSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const NavBar = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.userSlice.user.name);
 
   const handleLogout = () => {
     dispatch(unsetUser());
@@ -43,7 +45,9 @@ const NavBar = () => {
             </Link>
           </ul>
         )}
-        <Logged />
+
+        {/* Solo mostrar el componente Logged si el usuario está logueado */}
+        {user && <Logged />}
       </Container>
       <hr />
     </>

@@ -1,17 +1,24 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding-top: 1rem;
+  margin-top: 2rem;
 
   h1 {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    color: var(--green-basic);
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 25%;
     margin: 0 auto;
   }
 

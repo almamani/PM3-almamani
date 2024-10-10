@@ -44,7 +44,7 @@ const Register = () => {
       try {
         const response = await axios.post(
           "http://localhost:3000/users/register",
-          dataToSend // Enviar solo los datos necesarios
+          dataToSend
         );
         console.log("Respuesta del servidor:", response.data);
 
@@ -75,7 +75,7 @@ const Register = () => {
 
   return (
     <Container>
-      <h1>Formulario de Registro</h1>
+      <h1>Registro de Pacientes</h1>
       <form onSubmit={handleOnSubmit}>
         <div>
           <label>Nombre y Apellido:</label>

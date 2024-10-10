@@ -1,50 +1,54 @@
 import { Container } from "./styled";
 import { useState } from "react";
-import { validateLogin } from "../../helpers/validateLogin";
-import { useNavigate, Link } from "react-router-dom";
-import { HOME, REGISTER } from "../../helpers/pathsRoutes";
-import { useUserLoginMutation } from "../../redux/usersApi";
-import { setUser } from "../../redux/usersSlice";
-import { useDispatch } from "react-redux";
+import { validateNuevoTurno } from "../../helpers/validateNuevoTurno";
+import { useNavigate } from "react-router-dom";
+import { MY_APPOIMENTS } from "../../helpers/pathsRoutes";
+import { useNewAppointmentMutation } from "../../redux/appointmentsApi";
+import { useUserAppointmentsQuery } from "../../redux/usersApi";
 
-const Login = () => {
+import { useSelector } from "react-redux";
+
+const NuevoTurno = () => {
   const navigate = useNavigate();
+  const userLogged = useSelector((state) => state.userSlice.user.id);
 
-  const [userLogin] = useUserLoginMutation();
-  const dispatch = useDispatch();
+  const { refetch } = useUserAppointmentsQuery(userLogged);
 
-  const [userData, setUserData] = useState({
-    username: "",
-    password: "",
+  const [turno, setTurno] = useState({
+    date: "",
+    time: "",
+    userId: userLogged,
   });
 
   const [errors, setErrors] = useState({
-    username: " ",
-    password: " ",
+    date: "",
+    time: "",
   });
+
+  const [newAppointment] = useNewAppointmentMutation();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    setUserData({ ...userData, [name]: value });
+    setTurno({ ...turno, [name]: value });
 
-    setErrors(validateLogin({ ...userData, [name]: value }));
+    setErrors(validateNuevoTurno({ ...turno, [name]: value }));
   };
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
 
-    const validationErrors = validateLogin(userData, true);
+    const validationErrors = validateNuevoTurno(turno, true);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
       try {
-        const user = await userLogin(userData).unwrap();
-        dispatch(setUser(user));
-        navigate(HOME);
+        await newAppointment(turno);
+        refetch();
+        navigate(MY_APPOIMENTS);
       } catch (error) {
-        alert("Usuario y/o Contraseña Incorrectos", error);
+        alert("Error al crear turno", error);
       }
     }
   };
@@ -52,38 +56,35 @@ const Login = () => {
   return (
     <Container>
       <h1>Nuevo Turno</h1>
+      <h2>Horario de Atención: Lunes a Viernes - 10:00 a 18:00 hs</h2>
       <form onSubmit={handleOnSubmit}>
         <div>
-          <label>Ingrese Usuario:</label>
+          <label>Fecha:</label>
           <input
-            type="text"
-            value={userData.username}
-            name="username"
-            placeholder="Ingrese Usuario"
+            type="date"
+            value={turno.date}
+            name="date"
             onChange={handleInputChange}
+            min={new Date().toISOString().split("T")[0]}
           />
-          {errors.username && <p>{errors.username}</p>}
+          {errors.date && <p>{errors.date}</p>}
         </div>
 
         <div>
-          <label>Ingrese Contraseña:</label>
+          <label>Hora:</label>
           <input
-            type="password"
-            value={userData.password}
-            name="password"
-            placeholder="Ingrese Contraseña"
+            type="time"
+            value={turno.time}
+            name="time"
             onChange={handleInputChange}
           />
-          {errors.password && <p>{errors.password}</p>}
+          {errors.time && <p>{errors.time}</p>}
         </div>
 
-        <button>Ingresar</button>
+        <button>Registrar Turno</button>
       </form>
-      <div className="registro">
-        <Link to={REGISTER}>¿No estás registrado? Registrate Aquí</Link>
-      </div>
     </Container>
   );
 };
 
-export default Login;
+export default NuevoTurno;
