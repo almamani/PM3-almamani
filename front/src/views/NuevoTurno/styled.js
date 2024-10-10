@@ -60,6 +60,7 @@ const Container = styled.div`
     color: white;
     border: none;
     border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
 

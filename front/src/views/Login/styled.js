@@ -27,7 +27,7 @@ const Container = styled.div`
   input {
     width: 100%;
     padding: 0.5rem;
-    margin-bottom: 0.5rem; /* Reduce el espacio entre input y mensaje de error */
+    margin-bottom: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
@@ -35,7 +35,7 @@ const Container = styled.div`
   p {
     color: var(--pink-basic);
     font-size: 0.8rem;
-    margin: 0.2rem 0 0 0; /* Espacio entre input y mensaje de error */
+    margin: 0.2rem 0 0 0;
   }
 
   .registro {
@@ -53,6 +53,7 @@ const Container = styled.div`
     color: white;
     border: none;
     border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
 

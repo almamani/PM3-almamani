@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding-top: 1rem;
+  padding-top: 0.3rem;
 
   h1 {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
   }
 
   form {
@@ -51,6 +51,7 @@ const Container = styled.div`
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
     transition: background-color 0.3s;
 
     &:hover {

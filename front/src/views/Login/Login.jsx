@@ -1,11 +1,11 @@
 import { Container } from "./styled";
-import { useState } from "react";
-import { validateLogin } from "../../helpers/validateLogin";
 import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
 import { HOME, REGISTER } from "../../helpers/pathsRoutes";
-import { useUserLoginMutation } from "../../redux/usersApi";
 import { setUser } from "../../redux/usersSlice";
+import { useUserLoginMutation } from "../../redux/usersApi";
 import { useDispatch } from "react-redux";
+import { validateLogin } from "../../helpers/validateLogin";
 
 const Login = () => {
   const navigate = useNavigate();

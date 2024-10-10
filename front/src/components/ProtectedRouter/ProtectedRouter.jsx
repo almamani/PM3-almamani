@@ -1,11 +1,10 @@
 import { Navigate } from "react-router-dom";
 import { SLASH } from "../../helpers/pathsRoutes";
+import { useSelector } from "react-redux";
 
 const ProtectedRouter = ({ children }) => {
-  // En esta variable utilizaré estados globales - tendré el id cuando el usuario esté logueado
-  const userID = true;
-
-  if (!userID) {
+  const loggedInUser = useSelector((state) => state.userSlice.login);
+  if (!loggedInUser) {
     return <Navigate to={SLASH} replace />;
   }
 

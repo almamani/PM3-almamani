@@ -6,14 +6,9 @@ const Container = styled.div`
   align-items: center;
   height: 70px;
 
-  img {
-    width: 100%;
-    display: block;
-  }
-
   figure {
-    width: 20%;
-    max-width: 100px;
+    width: 18%;
+    max-width: 150px;
   }
 `;
 

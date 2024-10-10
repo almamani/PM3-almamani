@@ -1,8 +1,7 @@
 import { Container } from "./styled";
+import { useSelector } from "react-redux";
 import { useUserAppointmentsQuery } from "../../redux/usersApi";
 import { useCancelAppointmentMutation } from "../../redux/appointmentsApi";
-import { useSelector } from "react-redux";
-
 import Turno from "../../components/Turno/Turno";
 
 const MisTurnos = () => {
@@ -23,7 +22,7 @@ const MisTurnos = () => {
   const handleCancelStatus = async (id, date) => {
     const difHoras = calculoDifHoras(date);
     if (difHoras < 24) {
-      alert("Solo se puede cancelar el turno hasta 24 horas antes ");
+      alert("Solo se puede cancelar el turno hasta 24 horas antes");
       return;
     }
 
@@ -36,28 +35,31 @@ const MisTurnos = () => {
   };
 
   return (
-    <>
-      <Container>
-        <h1>MisTurnos</h1>
-        <div className="containerTurnos">
-          {isLoading
-            ? "Cargando Turnos..."
-            : isError
-            ? "Error al cargar los Turnos"
-            : data.user.appointments.map((turno) => {
-                const { date, id } = turno;
+    <Container>
+      <h1>MisTurnos</h1>
+      <div className="containerTurnos">
+        {isLoading ? (
+          <h3 className="mensaje">Cargando Turnos...</h3>
+        ) : isError ? (
+          <h3 className="mensaje">Error al cargar los Turnos</h3>
+        ) : (
+          data.user.appointments
+            .slice()
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            .map((turno) => {
+              const { date, id } = turno;
 
-                return (
-                  <Turno
-                    key={id}
-                    turno={turno}
-                    handleCancelStatus={() => handleCancelStatus(id, date)}
-                  />
-                );
-              })}
-        </div>
-      </Container>
-    </>
+              return (
+                <Turno
+                  key={id}
+                  turno={turno}
+                  handleCancelStatus={() => handleCancelStatus(id, date)}
+                />
+              );
+            })
+        )}
+      </div>
+    </Container>
   );
 };
 

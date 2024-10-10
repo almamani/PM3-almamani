@@ -1,10 +1,15 @@
 import { Container, Estado } from "./styled";
 
-const Turno = ({ turno: { id, date, time, status }, handleCancelStatus }) => {
+const formatearFecha = (fecha) => {
+  const [anio, mes, dia] = fecha.split("-");
+  return `${dia}/${mes}/${anio}`;
+};
+
+const Turno = ({ turno: { date, time, status }, handleCancelStatus }) => {
   return (
     <>
       <Container>
-        <h3>Fecha: {date}</h3>
+        <h3>Fecha: {formatearFecha(date)}</h3>
         <h3>Hora: {time}</h3>
         <Estado $status={status}>
           Estado: {status === "cancelled" ? "Cancelado" : "Activo"}

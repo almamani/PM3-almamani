@@ -7,7 +7,7 @@
   --pink-form: #ffecf5;
   --green-basic: #019149;
   --red-strong: #ba2363;
-  --gray-light: #e4e1e1;
+  --gray-light: #f9f9f9;
   --black-basic: #333333;
 }
 
@@ -15,4 +15,17 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   background-color: var(--gray-light);
   color: var(--black-basic);
+  height: 100%;
+  margin: 0;
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  padding: 20px;
 }

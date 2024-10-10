@@ -4,49 +4,37 @@ import consultorioImg from "../../assets/consultorio.png";
 const Home = () => {
   return (
     <Container>
-      {/* Espacio para la imagen */}
       <figure>
         <img src={consultorioImg} alt="Imagen Consultorio" />
       </figure>
 
       <div>
-        <h1
-          style={{ fontSize: "2.5rem", color: "#ee027e", marginBottom: "10px" }}
-        >
-          Consultorio Odontológico - Cambiá tu sonrisa
-        </h1>
-        <h2
-          style={{ fontSize: "1.8rem", color: "#db0475", marginBottom: "10px" }}
-        >
-          Registrá tu turno fácilmente
-        </h2>
-        <p style={{ fontSize: "1rem", lineHeight: "1.6" }}>
+        <h2>Registrá tu turno fácilmente</h2>
+        <p>
           Bienvenido a nuestro consultorio odontológico, donde ofrecemos una
           variedad de servicios para cuidar tu salud bucodental y embellecer tu
           sonrisa.
         </p>
-        <ul style={{ listStyle: "none", padding: "0" }}>
-          <li style={{ fontSize: "1.2rem", color: "#fe7abf", margin: "5px 0" }}>
-            Blanqueamiento
+        <ul>
+          <li>
+            <span>*</span>Blanqueamiento
           </li>
-          <li style={{ fontSize: "1.2rem", color: "#fe7abf", margin: "5px 0" }}>
-            Tratamiento de Conducto
+          <li>
+            <span>*</span>Tratamiento de Conducto
           </li>
-          <li style={{ fontSize: "1.2rem", color: "#fe7abf", margin: "5px 0" }}>
-            Extracciones
+          <li>
+            <span>*</span>Extracciones
           </li>
-          <li style={{ fontSize: "1.2rem", color: "#fe7abf", margin: "5px 0" }}>
-            Carillas Dentales
-          </li>
-          <li style={{ fontSize: "1.2rem", color: "#fe7abf", margin: "5px 0" }}>
-            Prótesis Dentales
+
+          <li>
+            <span>*</span>Prótesis Dentales
           </li>
         </ul>
-        <div style={{ fontSize: "1.1rem", color: "#019149", margin: "10px 0" }}>
+        <p className="horarioAtencion">
           Nuestro horario de atención es de{" "}
           <strong>Lunes a Viernes de 10:00 a 18:00 hs</strong>.
-        </div>
-        <p style={{ fontSize: "1rem", lineHeight: "1.6" }}>
+        </p>
+        <p className="parrafoFinal">
           ¡Esperamos verte pronto para cuidar tu sonrisa!
         </p>
       </div>

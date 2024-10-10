@@ -1,10 +1,10 @@
 import { Container } from "./styled";
 import { useState } from "react";
-import { validateNuevoTurno } from "../../helpers/validateNuevoTurno";
 import { useNavigate } from "react-router-dom";
 import { MY_APPOIMENTS } from "../../helpers/pathsRoutes";
 import { useNewAppointmentMutation } from "../../redux/appointmentsApi";
 import { useUserAppointmentsQuery } from "../../redux/usersApi";
+import { validateNuevoTurno } from "../../helpers/validateNuevoTurno";
 
 import { useSelector } from "react-redux";
 
@@ -53,6 +53,18 @@ const NuevoTurno = () => {
     }
   };
 
+  const obtenerHoraActual = () => {
+    const ahora = new Date();
+    const horas = ahora.getHours().toString().padStart(2, "0");
+    const minutos = ahora.getMinutes().toString().padStart(2, "0");
+    return `${horas}:${minutos}`;
+  };
+
+  const esHoy = (fechaSeleccionada) => {
+    const hoy = new Date().toISOString().split("T")[0];
+    return fechaSeleccionada === hoy;
+  };
+
   return (
     <Container>
       <h1>Nuevo Turno</h1>
@@ -65,7 +77,7 @@ const NuevoTurno = () => {
             value={turno.date}
             name="date"
             onChange={handleInputChange}
-            min={new Date().toISOString().split("T")[0]}
+            min={new Date().toISOString().split("T")[0]} // Mínimo es la fecha actual
           />
           {errors.date && <p>{errors.date}</p>}
         </div>
@@ -77,6 +89,7 @@ const NuevoTurno = () => {
             value={turno.time}
             name="time"
             onChange={handleInputChange}
+            min={esHoy(turno.date) ? obtenerHoraActual() : "00:00"}
           />
           {errors.time && <p>{errors.time}</p>}
         </div>

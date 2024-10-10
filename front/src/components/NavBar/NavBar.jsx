@@ -1,6 +1,7 @@
+import { Container } from "./styled";
 import { Link, useLocation } from "react-router-dom";
 import imgLogo from "../../assets/logo_odonto.svg";
-import { Container } from "./styled";
+
 import {
   SLASH,
   HOME,
@@ -25,7 +26,7 @@ const NavBar = () => {
   return (
     <>
       <Container>
-        <figure>
+        <figure className="logo">
           <img src={imgLogo} alt="Logo Odontología" />
         </figure>
 
@@ -46,7 +47,6 @@ const NavBar = () => {
           </ul>
         )}
 
-        {/* Solo mostrar el componente Logged si el usuario está logueado */}
         {user && <Logged />}
       </Container>
       <hr />

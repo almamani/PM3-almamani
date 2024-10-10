@@ -1,8 +1,8 @@
+import axios from "axios";
 import { Container } from "./styled";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { validateRegister } from "../../helpers/validateRegister";
-import axios from "axios";
-import { Link } from "react-router-dom";
 import { SLASH } from "../../helpers/pathsRoutes";
 
 const Register = () => {

@@ -1,6 +1,6 @@
-import imgUser from "../../assets/user.jpg";
 import { Container } from "./styled";
 import { useSelector } from "react-redux";
+import imgUser from "../../assets/user.jpg";
 
 const Logged = () => {
   const userLogged = useSelector((state) => state.userSlice.user.name);

@@ -7,6 +7,13 @@ const Container = styled.div`
     margin-bottom: 2rem;
   }
 
+  .mensaje {
+    color: var(--green-basic);
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
   width: 90%;
   max-width: 1300px;
   margin: 0 auto;

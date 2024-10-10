@@ -9,14 +9,9 @@ const Container = styled.div`
   align-items: center;
   height: 70px;
 
-  img {
-    width: 100%;
-    display: block;
-  }
-
-  figure {
-    width: 40%;
-    max-width: 220px;
+  .logo {
+    width: 45%;
+    max-width: 230px;
   }
 
   ul {
@@ -26,6 +21,7 @@ const Container = styled.div`
   li {
     list-style: none;
     padding: 0.5rem 1.5rem;
+    font-weight: bold;
 
     &:hover {
       color: var(--pink-dark);

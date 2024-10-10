@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// Estilos del contenedor
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -20,12 +19,13 @@ const Container = styled.div`
     padding: 8px 18px;
     font-size: 14px;
     border-radius: 5px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, opacity 0.3s ease;
 
     &:disabled {
-      background-color: #f5a5c6;
-      color: #ffe4f2;
+      background-color: var(--pink-light);
+      color: var(--gray-light);
       cursor: not-allowed;
       opacity: 0.7;
     }
